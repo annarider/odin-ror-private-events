@@ -13,5 +13,6 @@
   </ul>
 <% else %> 
   <p>You haven't created any events yet.</p>
-  <%# <%= link_to, 'Create Event' %>
 <% end %>
+
+<%= link_to 'Create Event', new_event_path %>
