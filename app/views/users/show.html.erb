@@ -1,5 +1,9 @@
 <h1>All the events you have created</h1>
 
+<p>You're logged in as: 
+  <%= @user.email %>
+</p>
+
 <% if @user.created_events.any? %>
   <% @user.created_events.each do |event| %>
     <li>
