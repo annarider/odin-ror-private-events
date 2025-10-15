@@ -1,7 +1,7 @@
 <h1>All the events you have created</h1>
 
-<% if @user.events.any? %>
-  <% @user.events.each do |event| %>
+<% if @user.created_events.any? %>
+  <% @user.created_events.each do |event| %>
     <li>
       Location: <strong><%= event.location %></strong> - <%= event.date %>
     </li>
