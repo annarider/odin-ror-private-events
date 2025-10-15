@@ -1,2 +1,13 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<h1>All the events you have created</h1>
+
+<% if @user.events.any? %>
+  <% @user.events.each do |event| %>
+    <li>
+      Location: <strong><%= event.location %></strong> - <%= event.date %>
+    </li>
+    <% end %>
+  </ul>
+<% else %> 
+  <p>You haven't created any events yet.</p>
+  <%# <%= link_to, 'Create Event' %>
+<% end %>
