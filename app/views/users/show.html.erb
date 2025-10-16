@@ -1,9 +1,10 @@
-<h1>All the events you have created</h1>
+<h1>All your events</h1>
 
 <p>You're logged in as: 
   <%= @user.email %>
 </p>
 
+<h2>Events you created </h2>
 <% if @user.created_events.any? %>
   <% @user.created_events.each do |event| %>
     <li>
@@ -15,4 +16,22 @@
   <p>You haven't created any events yet.</p>
 <% end %>
 
-<%= link_to 'Create Event', new_event_path %>
+<%= button_to 'Create Event', new_event_path %>
+
+<hr>
+
+<h2>Events you are invited to</h2>
+<% if @user.attended_events.any? %>
+  <ul>
+    <% @user.attended_events.each do |event| %>
+      <li>
+        Location: <strong><%= event.location %></strong> - <%= event.date %>
+        <% if current_user == @user %>
+          <% button_to 'Cancel Attendance', invitation_path(@user.invitations.find_by(event_id: event.id)), method: :delete %>
+        <% end %>
+      </li>
+      <% end %>
+  </ul>
+<% else %>
+  <p>You haven't joined any events yet.</p>
+<% end %>
