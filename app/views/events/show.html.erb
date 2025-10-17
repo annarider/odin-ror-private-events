@@ -1,0 +1,14 @@
+<h1>Event Info</h1>
+
+<p>Location: <strong> <% event.location %> </strong> - <% event.date %> </p>
+
+<h2>Attendees</h2>
+<% if @events.users.any? %>
+  <li>
+      <% @events.users.each do |user| %>
+        <%= user.email %>
+      <% end %>
+  </li>
+<% else %> 
+  <p>So far, only <%= @event.creator %>, the host, is attending. </p>
+<% end %>
