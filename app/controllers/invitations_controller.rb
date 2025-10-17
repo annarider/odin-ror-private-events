@@ -20,6 +20,6 @@ class InvitationsController < ApplicationController
   private
 
   def invitation_params
-    params.require(:invitation).permit(:status)
+    params.require(:invitation).permit(:event_id)
   end
 end
