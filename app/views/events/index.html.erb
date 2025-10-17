@@ -5,6 +5,14 @@
   <% @events.each do |event| %>
     <li>
       Location: <strong><%= event.location %></strong> - <%= event.date %>
+
+      <% if user_signed_in? %>
+        <% if current_user.attended_events.include?(event) %>
+          <%= button_to 'Cancel', invitation_path(current_user.invitations.find_by(event_id: event.id)), method: :delete %>
+        <% else %>
+          <% button_to 'Attend', invitations_path, params: { invitation: { event_id: event.id } }, method: :post %>
+        <% end %>
+      <% end %>
     </li>
     <% end %>
   </ul>
