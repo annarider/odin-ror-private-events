@@ -6,7 +6,7 @@
     <li>
       Location: <strong><%= link_to event.location, event_path(event) %></strong> - <%= event.date %>
 
-      <% if user_signed_in? %>
+      <% if user_signed_in? && current_user != event.creator %>
         <% if current_user.attended_events.include?(event) %>
           <%= button_to 'Cancel', invitation_path(current_user.invitations.find_by(event_id: event.id)), method: :delete %>
         <% else %>
