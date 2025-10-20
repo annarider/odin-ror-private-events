@@ -9,4 +9,8 @@ class Event < ApplicationRecord
 
   scope :past, -> { where('date <= ?', Time.now) }
   scope :upcoming, -> { where('date > ?', Time.now) }
+
+  def creator?(user)
+    creator == user
+  end
 end
