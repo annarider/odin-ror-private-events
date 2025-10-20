@@ -4,11 +4,12 @@
 
 <h2>Attendees</h2>
 <% if @event.attendees.any? %>
-  <li>
-      <% @event.attendee.each do |attendee| %>
-        <%= attendee.email %>
+  <ul>
+    <li><%= @event.creator.email %></li>
+    <% @event.attendees.each do |attendee| %>
+      <li><%= attendee.email %></li>
       <% end %>
-  </li>
-<% else %> 
-  <p>So far, only <%= @event.creator.email %>, the host, is attending. </p>
-<% end %>
+  </ul>
+  <% else %> 
+    <p>So far, only <%= @event.creator.email %>, the host, is attending. </p>
+  <% end %>
