@@ -4,7 +4,7 @@
   <ul>
   <% @events.each do |event| %>
     <li>
-      Location: <strong><%= event.location %></strong> - <%= event.date %>
+      Location: <strong><%= link_to event.location, event_path(event) %></strong> - <%= event.date %>
 
       <% if user_signed_in? %>
         <% if current_user.attended_events.include?(event) %>
