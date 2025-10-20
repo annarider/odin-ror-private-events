@@ -20,8 +20,8 @@
 
 <hr>
 
-<% upcoming_events = @user.attended_events.where('date > ?', Time.now) %>
-<% past_events = @user.attended_events.where('date <= ?', Time.now) %>
+<% upcoming_events = @user.attended_events.upcoming %>
+<% past_events = @user.attended_events.past %>
 
 <h2>Events you are attending</h2>
   <% if upcoming_events.any? %>
