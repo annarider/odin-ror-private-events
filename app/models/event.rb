@@ -4,7 +4,7 @@ class Event < ApplicationRecord
 
   validates :date, :location, presence: true
 
-  has_many :invitations
+  has_many :invitations, dependent: :destroy
   has_many :attendees, through: :invitations, source: :attendee
 
   scope :past, -> { where('date <= ?', Time.now) }
