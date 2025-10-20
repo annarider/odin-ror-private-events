@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Odin Ror Private Events" %></title>
+    <title><%= content_for(:title) || "Private Events (Meetup Clone)" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -23,6 +23,20 @@
   </head>
 
   <body>
+    <%# Header navigation menu  %>
+    <nav>
+      <%= link_to 'All Events', events_path %>
+
+      <% if user_signed_in? %>
+        <%= link_to 'My Dashboard', user_path(current_user) %>
+        <%= link_to 'Create Event', new_event_path %>
+        <%= button_to 'Log Out', destroy_user_session_path, method: :delete %>
+      <% else %>
+        <%= link_to 'Log In', new_user_session_path %>
+        <%= link_to 'Sign Up', new_user_registration_path %>
+      <% end %>
+    </nav>
+
     <%= yield %>
   </body>
 </html>
