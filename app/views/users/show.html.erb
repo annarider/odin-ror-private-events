@@ -20,18 +20,34 @@
 
 <hr>
 
+<% upcoming_events = @user.attended_events.where('date > ?', Time.now) %>
+<% past_events = @user.attended_events.where('date <= ?', Time.now) %>
+
 <h2>Events you are attending</h2>
-<% if @user.attended_events.any? %>
-  <ul>
-    <% @user.attended_events.each do |event| %>
-      <li>
-        Location: <strong><%= event.location %></strong> - <%= event.date %>
-        <% if current_user == @user %>
-          <% button_to 'Cancel Attendance', invitation_path(@user.invitations.find_by(event_id: event.id)), method: :delete %>
-        <% end %>
-      </li>
-      <% end %>
-  </ul>
+  <% if upcoming_events.any? %>
+    <ul>
+      <% upcoming_events.each do |event| %>
+        <li>
+          Location: <strong><%= event.location %></strong> - <%= event.date %>
+          <% if current_user == @user %>
+            <% button_to 'Cancel Attendance', invitation_path(@user.invitations.find_by(event_id: event.id)), method: :delete %>
+          <% end %>
+        </li>
+    <% end %>
+    </ul>
 <% else %>
   <p>You haven't joined any events yet.</p>
+<% end %>
+
+<h2>Events you have attended</h2>
+<% if past_events.any? %>
+  <ul>
+    <% past_events.each do |event| %>
+    <li>
+      Location: <strong><%= event.location %></strong> - <%= event.date %>
+    </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>You haven't attended any events yet.</p>
 <% end %>
