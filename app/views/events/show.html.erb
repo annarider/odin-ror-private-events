@@ -1,6 +1,13 @@
 <h1>Event Info</h1>
 
 <p>Location: <strong> <%= @event.location %> </strong> - <%= @event.date %> </p>
+<p>This event is 
+    <% if @event.private? %>
+      private.
+    <% else %>
+      public.
+    <% end %>
+</p>
 
 <h2>Attendees</h2>
 <% if @event.attendees.any? %>
@@ -13,3 +20,5 @@
   <% else %> 
     <p>So far, only <%= @event.creator.email %>, the host, is attending. </p>
   <% end %>
+
+<%= button_to 'Invite People', new_event_invitation_path, method: :get %>
