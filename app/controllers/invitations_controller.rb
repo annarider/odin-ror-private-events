@@ -3,10 +3,10 @@ class InvitationsController < ApplicationController
   before_action :set_event
   before_action :authorize_creator!, only: [:new, :create]
   before_action :set_invitation, only: [:destroy]
+  before_action :set_invitable_users, only: [:new, :create]
 
   def new
     @invitation = @event.invitations.build
-    @invitable_users = User.invitable_for(@event)
   end
   def create
     @invitation = @event.invitations.build(invitation_params)
@@ -14,7 +14,6 @@ class InvitationsController < ApplicationController
     if @invitation.save
       redirect_to @event, notice: 'Invitation sent successfully.'
     else
-      @invitable_users = User.invitable_for(@event)
       render :new, status: :unprocessable_entity
     end
   end
@@ -37,6 +36,10 @@ class InvitationsController < ApplicationController
 
   def set_invitation
     @invitation = @event.invitations.find(params[:id])
+  end
+
+  def set_invitable_users
+    @invitable_users = User.invitable_for(@event)
   end
 
   def invitation_params
