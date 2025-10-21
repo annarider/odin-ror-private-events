@@ -4,6 +4,10 @@ class InvitationsController < ApplicationController
   before_action :authorize_creator!, only: [:new, :create]
   before_action :set_invitation, only: [:destroy]
 
+  def new
+    @invitation = @event.invitations.build
+    @invitable_users = User.where.not(id: @event.attendees.pluck(:id) + [@event.creator_id])
+  end
   def create
     @invitation = current_user.invitations.build(invitation_params)
 
