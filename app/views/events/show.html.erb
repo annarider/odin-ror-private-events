@@ -12,7 +12,7 @@
 <h2>Attendees</h2>
 <% if @event.attendees.any? %>
   <ul>
-    <li><%= @event.creator.email %></li>
+    <li><%= @event.creator.email %> (Host)</li>
     <% @event.attendees.each do |attendee| %>
       <li><%= attendee.email %></li>
       <% end %>
@@ -21,4 +21,7 @@
     <p>So far, only <%= @event.creator.email %>, the host, is attending. </p>
   <% end %>
 
-<%= button_to 'Invite People', new_event_invitation_path, method: :get %>
+<% if user_signed_in && @event.creator?(current_user) %>
+  <h2>Manage Invitations</h2>
+  <%= link_to 'Invite People', new_event_invitation_path(@event) %>
+<% end %>
