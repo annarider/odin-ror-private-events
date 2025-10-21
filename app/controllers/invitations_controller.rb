@@ -6,7 +6,7 @@ class InvitationsController < ApplicationController
 
   def new
     @invitation = @event.invitations.build
-    @invitable_users = User.where.not(id: @event.attendees.pluck(:id) + [@event.creator_id])
+    @invitable_users = User.invitable_for(@event)
   end
   def create
     @invitation = @event.invitations.build(invitation_params)
@@ -14,7 +14,7 @@ class InvitationsController < ApplicationController
     if @invitation.save
       redirect_to @event, notice: 'Invitation sent successfully.'
     else
-      @invitable_users = User.where.not(id: @event.attendees.pluck(:id) + [@event.creator_id])
+      @invitable_users = User.invitable_for(@event)
       render :new, status: :unprocessable_entity
     end
   end

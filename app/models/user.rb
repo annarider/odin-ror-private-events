@@ -7,4 +7,9 @@ class User < ApplicationRecord
   has_many :created_events, class_name: 'Event', foreign_key: 'creator_id'
   has_many :invitations
   has_many :attended_events, through: :invitations, source: :attended_event
+
+  scope :invitable_for, ->(event) do
+    where.not(id: event.attendees.select(:id))
+      .where.not(id: event.creator_id)
+  end
 end

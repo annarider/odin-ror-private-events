@@ -2,10 +2,10 @@
 
 <p>Extend an invitation to someone for your event <%= event.location %></p>
 
-<%= form_with model: @invitation do |form| %>
+<%= form_with model: [@event, @invitation] do |form| %>
   <div>
-    <%= form.label :attendee %><br>
-    <%= form.attendee_select :attendee %>
+    <%= form.label :user_id, 'Select person to invite' %><br>
+    <%= form.collection_select :user_id %>
     <% @invitation.errors.full_messages_for(:attendee).each do |message| %>
       <div><%= message %></div>
     <% end %>
