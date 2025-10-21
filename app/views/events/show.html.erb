@@ -21,18 +21,19 @@
     <p>So far, only <%= @event.creator.email %>, the host, is attending. </p>
   <% end %>
 
-<% if user_signed_in && @event.creator?(current_user) %>
+<% if user_signed_in? && @event.creator?(current_user) %>
   <h2>Manage Invitations</h2>
   <%= link_to 'Invite People', new_event_invitation_path(@event) %>
 
   <% if @event.invitations.any? %>
-  <h3>People Invited to Your Event</h3> 
-  <ul>
-    <% @event.invitations.each do |invitation| %>
-    <li>
-      <%= invitation.attendee.email %> - <%= invitation.status.humanize %>
-      <%= button_to 'Remove', event_invitation_path(@event, invitation), method: :delete, form: { data: { turbo_confirm: 'Are you sure?' } }%>
-    </li>
-    <% end %>
-  </ul> 
+    <h3>People Invited to Your Event</h3> 
+    <ul>
+      <% @event.invitations.each do |invitation| %>
+      <li>
+        <%= invitation.attendee.email %> - <%= invitation.status.humanize %>
+        <%= button_to 'Remove', event_invitation_path(@event, invitation), method: :delete, form: { data: { turbo_confirm: 'Are you sure?' } } %>
+      </li>
+      <% end %>
+    </ul>
+  <% end %>
 <% end %>
