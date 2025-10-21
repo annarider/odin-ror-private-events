@@ -1,0 +1,17 @@
+<h1>New Invitation</h1>
+
+<p>Extend an invitation to someone for your event <%= event.location %></p>
+
+<%= form_with model: @invitation do |form| %>
+  <div>
+    <%= form.label :attendee %><br>
+    <%= form.attendee_select :attendee %>
+    <% @invitation.errors.full_messages_for(:attendee).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
