@@ -5,13 +5,15 @@
 <%= form_with model: [@event, @invitation] do |form| %>
   <div>
     <%= form.label :user_id, 'Select person to invite' %><br>
-    <%= form.collection_select :user_id %>
+    <%= form.collection_select :user_id, @invitable_users, :id, :email, { prompt: 'Choose a person...' } %>
     <% @invitation.errors.full_messages_for(:attendee).each do |message| %>
       <div><%= message %></div>
     <% end %>
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit 'Send Invitation' %>
   </div>
 <% end %>
+
+<%= link_to 'Back to Event', event_path(@event) %>
