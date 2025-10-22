@@ -8,7 +8,8 @@
 
       <% if user_signed_in? && current_user != event.creator %>
         <% if current_user.attended_events.include?(event) %>
-          <%= button_to 'Cancel', invitation_path(current_user.invitations.find_by(event_id: event.id)), method: :delete %>
+        <% invitation = current_user.invitations.find_by(event_id: event.id) %>
+          <%= button_to 'Cancel', event_invitation_path(event, invitation), method: :delete %>
         <% else %>
           <%= button_to 'Attend', invitations_path, params: { invitation: { event_id: event.id } }, method: :post %>
         <% end %>
