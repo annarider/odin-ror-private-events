@@ -10,11 +10,15 @@ class Event < ApplicationRecord
   scope :past, -> { where('date <= ?', Time.now) }
   scope :upcoming, -> { where('date > ?', Time.now) }
   scope :visible_to, ->(user) {
-    where(private: false).or(
-      where(creator: user)
-    ).or(
-      where(id: user.attended_events.select(:id))
-    )
+    if user
+      where(private: false).or(
+        where(creator: user)
+      ).or(
+        where(id: user.attended_events.select(:id))
+      )
+    else
+      where(private: false)
+    end
   }
 
   def creator?(user)
