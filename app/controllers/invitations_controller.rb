@@ -3,6 +3,7 @@ class InvitationsController < ApplicationController
   before_action :set_event
   before_action :authorize_creator!, only: [:new, :create]
   before_action :set_invitation, only: [:destroy]
+  before_action :authorize_destroy!, only: [:destroy]
   before_action :set_invitable_users, only: [:new, :create]
 
   def new
@@ -36,6 +37,12 @@ class InvitationsController < ApplicationController
 
   def set_invitation
     @invitation = @event.invitations.find(params[:id])
+  end
+
+  def authorize_destroy!
+    unless @event.creator?(current_user) || @invitation.attendee == current_user
+      redirect_to root_path, alert: 'You are not allowed to delete.'
+    end
   end
 
   def set_invitable_users
