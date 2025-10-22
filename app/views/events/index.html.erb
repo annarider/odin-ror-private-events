@@ -4,7 +4,7 @@
   <ul>
   <% @events.each do |event| %>
     <li>
-      Location: <strong><%= link_to event.location, event_path(event) %></strong> - <%= event.date %>
+      Location: <strong><%= link_to event.location, event_path(event) %></strong> - <%= event.date %> (<%= event.private? ? 'private' : 'public' %> event)
 
       <% if user_signed_in? && current_user != event.creator %>
         <% if current_user.attended_events.include?(event) %>
