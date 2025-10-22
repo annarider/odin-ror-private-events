@@ -6,13 +6,18 @@
     <li>
       Location: <strong><%= link_to event.location, event_path(event) %></strong> - <%= event.date %> (<%= event.private? ? 'private' : 'public' %> event)
 
-      <% if user_signed_in? && current_user != event.creator %>
-        <% if current_user.attended_events.include?(event) %>
-        <% invitation = current_user.invitations.find_by(event_id: event.id) %>
-          <%= button_to 'Cancel', event_invitation_path(event, invitation), method: :delete %>
+      <% if user_signed_in? %>
+        <% if current_user == event.creator %>
+          <%= link_to 'Edit', edit_event_path(event) %>
+          <%= button_to 'Delete', event_path(event), method: :delete, form: { data: { turbo_confirm: 'Are you sure?' } } %>
         <% else %>
-          <%= button_to 'Attend', event_invitations_path(event), params: { invitation: { event_id: event.id } }, method: :post %>
-        <% end %>
+          <% if current_user.attended_events.include?(event) %>
+            <% invitation = current_user.invitations.find_by(event_id: event.id) %>
+            <%= button_to 'Cancel', event_invitation_path(event, invitation), method: :delete %>
+          <% else %>
+            <%= button_to 'Attend', event_invitations_path(event), params: { invitation: { event_id: event.id } }, method: :post %>
+          <% end %>
+      <% end %>
       <% end %>
     </li>
     <% end %>
