@@ -4,6 +4,6 @@ class Invitation < ApplicationRecord
 
   enum :status, { pending: 0, accepted: 1, declined: 2 }, default: :pending
 
-  validates :attendee, uniqueness: { scope: :attended_event_id, 
+  validates :attendee, uniqueness: { scope: :event_id, 
                                      message: 'has already been invited to this event'}
 end

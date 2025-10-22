@@ -30,7 +30,8 @@
         <li>
           Location: <strong><%= event.location %></strong> - <%= event.date %>
           <% if current_user == @user %>
-            <% button_to 'Cancel Attendance', invitation_path(@user.invitations.find_by(event_id: event.id)), method: :delete %>
+            <% invitation = @user.invitations.find_by(event_id: event.id) %>
+            <% button_to 'Cancel Attendance', event_invitation_path(event, invitation), method: :delete %>
           <% end %>
         </li>
     <% end %>
