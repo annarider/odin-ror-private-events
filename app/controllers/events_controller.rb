@@ -22,8 +22,12 @@ class EventsController < ApplicationController
     end
   end
 
-  def edit
-    @event = Event.find()
+  def update
+    if @event.update(event_params)
+      redirect_to @event, notice: 'Event successfully updated.'
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   private
