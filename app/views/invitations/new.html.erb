@@ -1,6 +1,6 @@
 <h1>New Invitation</h1>
 
-<p>Extend an invitation to someone for your event <%= event.location %></p>
+<p>Extend an invitation to someone for your event <%= @event.location %></p>
 
 <%= form_with model: [@event, @invitation] do |form| %>
   <div>
