@@ -30,6 +30,12 @@ class EventsController < ApplicationController
     end
   end
 
+  def destroy
+    @event.destroy
+
+    redirect_to events_path, notice: 'Event was successfully deleted.'
+  end
+
   private
 
   def set_event
