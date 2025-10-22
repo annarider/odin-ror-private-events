@@ -30,7 +30,7 @@
     <ul>
       <% @event.invitations.each do |invitation| %>
       <li>
-        <%= invitation.attendee.email %> - <%= invitation.status.humanize %>
+        <%= invitation.attendee.email %> - <%= invitation.status&.humanize || 'pending' %>
         <%= button_to 'Remove', event_invitation_path(@event, invitation), method: :delete, form: { data: { turbo_confirm: 'Are you sure?' } } %>
       </li>
       <% end %>
