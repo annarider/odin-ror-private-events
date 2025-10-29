@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
-  before_action :authorize_user!, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, only: [ :new, :create ]
+  before_action :set_event, only: [ :show, :edit, :update, :destroy ]
+  before_action :authorize_user!, only: [ :edit, :update, :destroy ]
 
   def index
     @events = Event.visible_to(current_user)
@@ -24,7 +24,7 @@ class EventsController < ApplicationController
 
   def update
     if @event.update(event_params)
-      redirect_to @event, notice: 'Event successfully updated.'
+      redirect_to @event, notice: "Event successfully updated."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -33,7 +33,7 @@ class EventsController < ApplicationController
   def destroy
     @event.destroy
 
-    redirect_to events_path, notice: 'Event was successfully deleted.'
+    redirect_to events_path, notice: "Event was successfully deleted."
   end
 
   private
@@ -43,7 +43,7 @@ class EventsController < ApplicationController
   end
 
   def authorize_user!
-    redirect_to events_path, alert: 'Not authorized' unless @event.creator == current_user
+    redirect_to events_path, alert: "Not authorized" unless @event.creator == current_user
   end
 
   def event_params
